@@ -40,7 +40,8 @@
 
   var myP1 = new BMap.Point(106.521436,29.532288);    //起点-重庆
   var myP2 = new BMap.Point(108.983569,34.285675);    //终点-西安
-  var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/Mario.png", new BMap.Size(32, 70), {    //小车图片
+  //http://localhost:8080/static/img/fly.png
+  var myIcon = new BMap.Icon("http://localhost:8080/static/img/plane.png", new BMap.Size(128, 128), {    //小车图片
     //offset: new BMap.Size(0, -5),    //相当于CSS精灵
     imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
   });
