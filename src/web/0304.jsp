@@ -40,19 +40,31 @@
 
   var myP1 = new BMap.Point(106.521436,29.532288);    //起点-重庆
   var myP2 = new BMap.Point(108.983569,34.285675);    //终点-西安
+  var myP3 = new BMap.Point(116.404449,39.920423);    //终点-北京
+
   //http://localhost:8080/static/img/fly.png
   var myIcon = new BMap.Icon("http://localhost:8080/static/img/plane.png", new BMap.Size(128, 128), {    //小车图片
     //offset: new BMap.Size(0, -5),    //相当于CSS精灵
     imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
   });
   var driving2 = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});    //驾车实例
-  driving2.search(myP1, myP2);    //显示一条公交线路
+  driving2.search(myP1, myP3,{waypoints:[myP2]});    //显示一条公交线路
+  //driving2.search(myP2, myP3);    //显示一条公交线路
+
 
   window.run = function (){
     var driving = new BMap.DrivingRoute(map);    //驾车实例
-    driving.search(myP1, myP2);
+    driving.search(myP1, myP3,{waypoints:[myP2]});
+    //driving.search(myP2, myP3);
     driving.setSearchCompleteCallback(function(){
-      var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
+      var routes_num = driving.getResults().getPlan(0).getNumRoutes();
+      var pts = [];
+      for(var i=0;i<routes_num;i++){
+        var pt = driving.getResults().getPlan(0).getRoute(i).getPath();
+        pts = pts.concat(pt);
+        //console.info(pts.length);
+      }
+      //var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
       var paths = pts.length;    //获得有几个点
 
       var carMk = new BMap.Marker(pts[0],{icon:myIcon});
