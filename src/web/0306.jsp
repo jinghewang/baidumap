@@ -37,8 +37,11 @@
   map.addControl(new BMap.NavigationControl());               // 添加平移缩放控件
   map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
   map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
+  map.addEventListener("tilesloaded",function(){
+      console.info("地图加载完毕");
+  });
   map.addEventListener("click", function(e){
-      alert(e.point.lng + ", " + e.point.lat);
+      console.info(e.point.lng + ", " + e.point.lat);
   });
 
   var myP1 = new BMap.Point(109.514391, 18.264731);    //起点-三亚
@@ -83,7 +86,13 @@
       var paths = pts.length;    //获得有几个点
 
       var carMk = new BMap.Marker(pts[0],{icon:myIcon});
+      carMk.addEventListener("click",function(event){
+        console.info(event);
+        //var p = marker.getPosition();  //获取marker的位置
+        console.info("我是飞机");
+      });
       map.addOverlay(carMk);
+
       i=0;
       function resetMkPoint(i){
         carMk.setPosition(pts[i]);
