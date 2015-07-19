@@ -38,8 +38,14 @@
   map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
   map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
 
-  var myP1 = new BMap.Point(106.521436,29.532288);    //起点-重庆
-  var myP2 = new BMap.Point(108.983569,34.285675);    //终点-西安
+  map.addEventListener("click", function(e){
+      alert(e.point.lng + ", " + e.point.lat);
+  });
+
+  var myP1 = new BMap.Point(109.514391, 18.264731);    //起点-三亚
+  //var myP20 = new BMap.Point(97.530123, 27.649528);   //广州
+  var myP21 = new BMap.Point(119.275342, 26.130281);    //福州
+  var myP22 = new BMap.Point(121.47229, 31.262899);   //终点-上海
   var myP3 = new BMap.Point(116.404449,39.920423);    //终点-北京
 
   //http://localhost:8080/static/img/fly.png
@@ -47,14 +53,23 @@
     //offset: new BMap.Size(0, -5),    //相当于CSS精灵
     imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
   });
+
+  //label
+  /*var lab1 = new BMap.Label("三亚",{position:myP1});        //创建3个label
+  var lab2 = new BMap.Label("上海",{position:myP20});
+  var lab3 = new BMap.Label("北京",{position:myP3});
+  map.addOverlay(lab1);
+  map.addOverlay(lab2);
+  map.addOverlay(lab3);*/
+
   var driving2 = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});    //驾车实例
-  driving2.search(myP1, myP3,{waypoints:[myP2]});    //显示一条公交线路
+  driving2.search(myP1, myP3,{waypoints:[myP21,myP22]});    //显示一条公交线路
   //driving2.search(myP2, myP3);    //显示一条公交线路
 
 
   window.run = function (){
     var driving = new BMap.DrivingRoute(map);    //驾车实例
-    driving.search(myP1, myP3,{waypoints:[myP2]});
+    driving.search(myP1, myP3,{waypoints:[myP21,myP22]});
     //driving.search(myP2, myP3);
     driving.setSearchCompleteCallback(function(){
       var routes_num = driving.getResults().getPlan(0).getNumRoutes();
@@ -74,7 +89,7 @@
         carMk.setPosition(pts[i]);
         if(i < paths){
           setTimeout(function(){
-            i+=100;
+            i+=300;
             resetMkPoint(i);
           },100);
         }
