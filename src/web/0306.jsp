@@ -56,6 +56,11 @@
     imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
   });
 
+  var myIcon2 = new BMap.Symbol(BMap_Symbol_SHAPE_PLANE, {
+    scale: 3,
+    rotation: 0
+  });
+
   //label
   var lab1 = new BMap.Label("三亚",{position:myP1});        //创建3个label
   var lab3 = new BMap.Label("北京",{position:myP3});
