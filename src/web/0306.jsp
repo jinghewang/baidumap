@@ -62,33 +62,19 @@
   map.addOverlay(lab1);
   map.addOverlay(lab3);
 
-  var driving2 = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});    //驾车实例
-  driving2.search(myP1, myP3,{waypoints:waypoints});    //显示一条公交线路
-  //driving2.search(myP2, myP3);    //显示一条公交线路
-
   //00
   var curve = new BMapLib.CurveLine(myPoints, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //创建弧线对象
   map.addOverlay(curve); //添加到地图中
   curve.enableEditing();
   var points = curve.getPath();
 
+  setTimeout(function(){
+    map.setViewport(myPoints);          //调整到最佳视野
+  },500);
 
   var run = function (){
-    var driving = new BMap.DrivingRoute(map);    //驾车实例
-    driving.search(myP1, myP3,{waypoints:waypoints});
-
-    driving.setSearchCompleteCallback(function(){
-      var routes_num = driving.getResults().getPlan(0).getNumRoutes();
       var pts = [];
-      for(var i=0;i<routes_num;i++){
-        var pt = driving.getResults().getPlan(0).getRoute(i).getPath();
-        pts = pts.concat(pt);
-        //console.info(pts.length);
-      }
-
-      //替换内容
       pts = points;
-      //var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
       var paths = pts.length;    //获得有几个点
 
       var carMk = new BMap.Marker(pts[0],{icon:myIcon});
@@ -98,7 +84,7 @@
         carMk.setPosition(pts[i]);
         if(i < paths){
           setTimeout(function(){
-            i+=3;
+            i+=1;
             resetMkPoint(i);
           },100);
         }
@@ -107,7 +93,6 @@
         resetMkPoint(5);
       },100)
 
-    });
   }
 
   setTimeout(function(){
