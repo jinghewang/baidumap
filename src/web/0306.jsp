@@ -11,7 +11,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-  <title>添加/删除覆盖物</title>
+  <title>图标沿弧线轨迹运行</title>
   <jsp:include page="tiles/main_head.jsp"></jsp:include>
   <style>
     .test{
@@ -54,9 +54,9 @@
   myPoints = myPoints.concat(myP3);
 
   //http://localhost:8080/static/img/fly.png
-  var myIcon = new BMap.Icon("http://localhost:8080/static/img/plane.png", new BMap.Size(128, 128), {    //小车图片
+  var myIcon = new BMap.Icon("http://localhost:8080/static/img/donkey.png", new BMap.Size(128, 128), {    //小车图片
     //offset: new BMap.Size(0, -5),    //相当于CSS精灵
-    imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+    imageOffset: new BMap.Size(20, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
   });
 
   var myIcon2 = new BMap.Symbol(BMap_Symbol_SHAPE_PLANE, {
